@@ -3,3 +3,4 @@
 require 'pf'
 
 puts Pf::VERSION
+puts Pf.hello

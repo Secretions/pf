@@ -1,7 +1,7 @@
 require "pf/version"
 
 module Pf
- def hello
+ def Pf.hello
   puts "hello"
  end
 end
