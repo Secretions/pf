@@ -2,4 +2,4 @@
 
 require 'pf'
 
-Pf.hello
+puts Pf::VERSION
