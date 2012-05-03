@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'pf/version'
+require 'pf'
 
-puts Pf.print_version
+puts print_version
