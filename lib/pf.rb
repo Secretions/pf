@@ -1,9 +1,7 @@
 require "pf/version"
 
 module Pf
-
- def print_version
-  puts VERSION
+ def hello
+  puts "hello"
  end
-
 end

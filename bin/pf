@@ -2,4 +2,4 @@
 
 require 'pf'
 
-puts print_version
+Pf.hello
