@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
-puts "hello"
+require 'pf/version'
+
+puts Pf.print_version
