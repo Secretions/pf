@@ -1,5 +1,5 @@
 module Pf
-    class File
+    class PfFile
         def initialize(file)
             open(file)
         end
