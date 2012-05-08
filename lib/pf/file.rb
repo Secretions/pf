@@ -4,7 +4,11 @@ module Pf
             open(file)
         end
         def open(file)
-            puts "Open " + file + " here"
+            crypt, module =  unwrap file
+            puts crypt + ", " + module
+        end
+        def unwrap
+            return 'the crypt type', 'the module'
         end
     end
 end
