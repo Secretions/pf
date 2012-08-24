@@ -51,6 +51,10 @@ optparse = OptionParser.new do|opts|
         args[:password] = pw
     end
 
+    opts.on('-z', '--username [USERNAME]', 'Username for authentication') do |pw|
+        args[:username] = pw
+    end
+
     opts.on('-n', '--note [NOTE]', "Note for password item") do |note|
         args[:note] = note
     end

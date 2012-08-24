@@ -25,9 +25,10 @@ module Pf
              if service == vars['service'] || !service
                  puts "       -=> " + name + " <=-"
                  puts "-----=> Service: " + vars['service'] if vars['service']
+                 puts "-----=> Username: " + vars['username'] if vars['username']
                  puts "-----=> Password: " + vars['password']
                  puts "-----=> Note: " + vars['note'] if vars['note']
-                 puts "-----=> Description: " + vars['note'] if vars['description']
+                 puts "-----=> Description: " + vars['description'] if vars['description']
                  puts "-----=> Location: " + vars['location'] if vars['location']
                  puts "-----=> Group: " + vars['group'] if vars['group']
                  if vars['previous_password']
@@ -69,6 +70,7 @@ module Pf
     new[item]['description'] = args[:desc] if args[:desc]
     new[item]['service'] = args[:service] if args[:service]
     new[item]['location'] = args[:location] if args[:location]
+    new[item]['username'] = args[:username] if args[:username]
     new[item]['group'] = args[:group] if args[:group]
 
     file.push(new)
@@ -101,6 +103,7 @@ module Pf
                     vars['description'] = args[:desc] if args[:desc]
                     vars['service'] = args[:service] if args[:service]
                     vars['location'] = args[:location] if args[:location]
+                    vars['username'] = args[:username] if args[:username]
                     vars['group'] = args[:group] if args[:group]
 
                     @pwfile.set file
