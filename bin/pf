@@ -1,0 +1,109 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'pf'
+
+recipient = ''
+pffile = '~/.pffile'
+
+File.open(File.expand_path('~/.pfrc')).each do |line|
+    if line.chomp =~ /^recipient: (.*)/
+        recipient = $1
+    elsif line.chomp =~ /^pffile: (.*)/
+        pffile = $1
+    end
+end
+
+filename = File.expand_path(pffile)
+
+args = {}
+
+optparse = OptionParser.new do|opts|
+    opts.banner = "pf [item] <options>"
+
+    # Default mode is search
+    args[:search] = true
+    opts.on( '-s', '--search', 'Search for passwords' ) do
+        args[:search] = true
+    end
+
+    args[:add] = false
+    opts.on('-a', '--add', 'Add password item') do |item|
+        args[:add] = item
+    end
+
+    args[:update] = false
+    opts.on('-u', '--update', 'Update password item') do |item|
+        args[:update] = item
+    end
+
+    args[:dump] = false
+    opts.on('-m', '--dump', "Dump password file") do
+        args[:dump] = true
+    end
+
+    args[:debug] = false
+    opts.on('-v', '--debug', 'Debug (verbose confusion)') do
+        args[:debug] = true
+    end
+
+    opts.on('-p', '--password [PASSWORD]', 'Password to add') do |pw|
+        args[:password] = pw
+    end
+
+    opts.on('-z', '--username [USERNAME]', 'Username for authentication') do |pw|
+        args[:username] = pw
+    end
+
+    opts.on('-n', '--note [NOTE]', "Note for password item") do |note|
+        args[:note] = note
+    end
+
+    opts.on('-d', '--description [DESC]', "Description of password") do |desc|
+        args[:desc] = desc
+    end
+
+    opts.on('-s', '--service [SERVICE]', "Service password is used for") do |service|
+        args[:service] = service
+    end
+
+    opts.on('-l', '--location [LOCATION]', 'Location of password') do |location|
+        args[:location] = location
+    end
+
+    opts.on( '-h', '--help', 'Display this screen' ) do
+        puts opts
+        exit
+    end
+end
+
+optparse.parse!
+
+store = Pf.load filename,recipient
+
+if args[:dump]
+    store.print
+    exit 0
+elsif !ARGV[0]
+    puts "No items to work on..."
+    exit 1
+end
+
+term = ARGV[0]
+
+if args[:debug]
+    puts "Search term is: " + term
+    puts "Arguments: "
+    puts args
+end
+
+if args[:add]
+    store.add term,args
+    store.write
+elsif args[:update]
+    store.update term,args
+    store.write
+elsif args[:search]
+    store.search term,args[:service]
+end
+
