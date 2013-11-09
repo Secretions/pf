@@ -7,9 +7,9 @@ module Pf
      PfFile.generate_file @filename
      return self
  end
- def Pf.load(newfile,recipient)
+ def Pf.load(newfile,recipient,quiet)
      @filename = newfile
-     @pwfile = PfFile.new @filename,recipient
+     @pwfile = PfFile.new @filename,recipient,quiet
      return self
  end
  def Pf.print

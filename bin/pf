@@ -84,7 +84,7 @@ end
 
 optparse.parse!
 
-store = Pf.load filename,recipient
+store = Pf.load filename,recipient,args[:quiet]
 
 if args[:dump]
     store.print

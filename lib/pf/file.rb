@@ -3,9 +3,10 @@ require 'json'
 
 module Pf
     class PfFile
-
-        def initialize(filename, recipient)
+            attr_accessor :quiet
+        def initialize(filename, recipient, quiet)
             @recipient = recipient
+            @quiet = quiet
             open filename
         end
         def open(filename)
@@ -125,7 +126,11 @@ module Pf
         # should use a lib, definitely shouldn't permahardcode the gpg path
         # (even with env)...
         def ungpg(data)
-            pipe = IO.popen("/usr/bin/env gpg", "w+") do |pipe|
+            ungpg_cmd = "/usr/bin/env gpg"
+            if @quiet
+                ungpg_cmd = ungpg_cmd + " -q --no-tty"
+            end
+            pipe = IO.popen(ungpg_cmd, "w+") do |pipe|
                 pipe.print data
                 pipe.close_write
                 # not using return despite feeling that doing so is evil
