@@ -15,27 +15,31 @@ module Pf
  def Pf.print
      puts @pwfile.get
  end
- def Pf.search(item,service)
-     puts ''
+ def Pf.search(item,service,quiet)
+     puts '' if not quiet
      @pwfile.get.each {
          | value |
          value.each {
          | name,vars |
          if name =~ /#{item}/i
              if service == vars['service'] || !service
-                 puts "       -=> " + name + " <=-"
-                 puts "-----=> Service: " + vars['service'] if vars['service']
-                 puts "-----=> Username: " + vars['username'] if vars['username']
-                 puts "-----=> Password: " + vars['password']
-                 puts "-----=> Note: " + vars['note'] if vars['note']
-                 puts "-----=> Description: " + vars['description'] if vars['description']
-                 puts "-----=> Location: " + vars['location'] if vars['location']
-                 puts "-----=> Group: " + vars['group'] if vars['group']
-                 if vars['previous_password']
-                     puts "-----=> Previous Passwords:"
-                     puts vars['previous_password']
+                 if quiet
+                     puts vars['password']
+                 else
+                     puts "       -=> " + name + " <=-"
+                     puts "-----=> Service: " + vars['service'] if vars['service']
+                     puts "-----=> Username: " + vars['username'] if vars['username']
+                     puts "-----=> Password: " + vars['password']
+                     puts "-----=> Note: " + vars['note'] if vars['note']
+                     puts "-----=> Description: " + vars['description'] if vars['description']
+                     puts "-----=> Location: " + vars['location'] if vars['location']
+                     puts "-----=> Group: " + vars['group'] if vars['group']
+                     if vars['previous_password']
+                         puts "-----=> Previous Passwords:"
+                         puts vars['previous_password']
+                     end
+                     puts ''
                  end
-                 puts ''
              end
          end
         }

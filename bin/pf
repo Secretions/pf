@@ -47,6 +47,11 @@ optparse = OptionParser.new do|opts|
         args[:debug] = true
     end
 
+    args[:quiet] = false
+    opts.on('-q', '--quiet', 'Quiet (just print password)') do
+        args[:quiet] = true
+    end
+
     opts.on('-p', '--password [PASSWORD]', 'Password to add') do |pw|
         args[:password] = pw
     end
@@ -104,6 +109,6 @@ elsif args[:update]
     store.update term,args
     store.write
 elsif args[:search]
-    store.search term,args[:service]
+    store.search term,args[:service],args[:quiet]
 end
 
