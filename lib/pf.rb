@@ -21,7 +21,7 @@ module Pf
          | value |
          value.each {
          | name,vars |
-         if name =~ /#{item}/
+         if name =~ /#{item}/i
              if service == vars['service'] || !service
                  puts "       -=> " + name + " <=-"
                  puts "-----=> Service: " + vars['service'] if vars['service']
