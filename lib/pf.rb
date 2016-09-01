@@ -117,7 +117,7 @@ module Pf
                         puts "Updated " + item
                     end
 
-                    self.search(item, vars['service'])
+                    self.search(item, vars['service'], false)
                 end
             end
         }
